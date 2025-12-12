@@ -1,0 +1,30 @@
+{
+  "status": "success",
+  "status_code": 200,
+  "message": "Message sent successfully!",
+  "data": {
+    "vector_data": [
+      {
+        "id": 28960,
+        "source_url": "https://www.drmalpani.com/hotels",
+        "text": "Hotels Near Malpani Infertility Clinic. Happy Home Hotel 66, Woodehouse Road, Opp. Chiragdin Showroom, Colaba, Mumbai - 400005. A/C Room Attached Bathroom Food service Room Charges 1400/- Single Room 2000/- Double Room. This is a 5 min walk away from the clinic. Tel: 91-22-22186072",
+        "tokens": 403,
+        "created_at": "2024-02-09T00:00:00.000Z"
+      },
+      {
+        "id": 27025,
+        "source_url": "https://www.drmalpani.com/hotels",
+        "text": "Hotels Near Malpani Infertility Clinic. We are in Colaba, the heart of tourist Bombay! Your best choice would be Gopal Mansion. Their website is www.gopalmansion.com. This is a building with 50 rooms, about 30 min away from the clinic. An airconditioned room with TV and bath is only Rs 800 per night.",
+        "tokens": 542,
+        "created_at": "2024-02-09T00:00:00.000Z"
+      },
+      {
+        "id": 36616,
+        "source_url": "https://www.drmalpani.com/knowledge-center/articles/test-tube-baby-treatment-cost-in-mumbai",
+        "text": "How much does a test tube baby treatment cost in Mumbai? A complete IVF cycle at our clinic costs only US $ 4000 (approx 3 Lakh INR) - and this is all-inclusive of all medical procedures.",
+        "tokens": 359,
+        "created_at": "2024-02-09T00:00:00.000Z"
+      }
+    ]
+  }
+}

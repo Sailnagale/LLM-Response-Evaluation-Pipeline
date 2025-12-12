@@ -1,0 +1,110 @@
+[
+    {
+        "turn_id": 5,
+        "metrics": {
+            "cost": {
+                "tokens_input": 52,
+                "tokens_output": 121,
+                "estimated_cost_usd": 0.000208
+            },
+            "factual": {
+                "score": 0,
+                "reason": "[Mock] The user asked for a location, but the AI provided a phone number."
+            },
+            "relevance": {
+                "score": 0,
+                "reason": "[Mock] The user asked for a location, but the AI provided a phone number."
+            }
+        }
+    },
+    {
+        "turn_id": 7,
+        "metrics": {
+            "cost": {
+                "tokens_input": 21,
+                "tokens_output": 150,
+                "estimated_cost_usd": 0.000236
+            },
+            "factual": {
+                "score": 1,
+                "reason": "[Mock] The answer directly addresses the user's question about IVF costs."
+            },
+            "relevance": {
+                "score": 1,
+                "reason": "[Mock] The answer directly addresses the user's question about IVF costs."
+            }
+        }
+    },
+    {
+        "turn_id": 9,
+        "metrics": {
+            "cost": {
+                "tokens_input": 15,
+                "tokens_output": 69,
+                "estimated_cost_usd": 0.000111
+            },
+            "factual": {
+                "score": 1,
+                "reason": "[Mock] The answer directly addresses the user's question about IVF costs."
+            },
+            "relevance": {
+                "score": 1,
+                "reason": "[Mock] The answer directly addresses the user's question about IVF costs."
+            }
+        }
+    },
+    {
+        "turn_id": 11,
+        "metrics": {
+            "cost": {
+                "tokens_input": 26,
+                "tokens_output": 110,
+                "estimated_cost_usd": 0.000178
+            },
+            "factual": {
+                "score": 1,
+                "reason": "[Mock] The answer directly addresses the user's question about IVF costs."
+            },
+            "relevance": {
+                "score": 0,
+                "reason": "[Mock] The user asked for a location, but the AI provided a phone number."
+            }
+        }
+    },
+    {
+        "turn_id": 13,
+        "metrics": {
+            "cost": {
+                "tokens_input": 14,
+                "tokens_output": 142,
+                "estimated_cost_usd": 0.00022
+            },
+            "factual": {
+                "score": 0,
+                "reason": "[Mock] The user asked for a location, but the AI provided a phone number."
+            },
+            "relevance": {
+                "score": 1,
+                "reason": "[Mock] The answer directly addresses the user's question about IVF costs."
+            }
+        }
+    },
+    {
+        "turn_id": 17,
+        "metrics": {
+            "cost": {
+                "tokens_input": 17,
+                "tokens_output": 140,
+                "estimated_cost_usd": 0.000219
+            },
+            "factual": {
+                "score": 1,
+                "reason": "[Mock] The answer directly addresses the user's question about IVF costs."
+            },
+            "relevance": {
+                "score": 1,
+                "reason": "[Mock] The answer directly addresses the user's question about IVF costs."
+            }
+        }
+    }
+]
