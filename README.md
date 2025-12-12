@@ -74,6 +74,7 @@ Chain-of-Thought (CoT): Implemented reasoning-first prompting (reason before sco
 Proactive Costing: Integrated tiktoken for local cost estimation before API calls, enabling budget caps and proactive filtering.
 
 Context-Aware Logic: Replaced "brute force" looping with smart parsing that isolates valid User→AI turns, preventing wasteful evaluation of system prompts or simple chit-chat.
+
 ---
 
 ## 🚀 Scalability Strategy (Millions of Users)
