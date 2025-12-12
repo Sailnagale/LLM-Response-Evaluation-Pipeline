@@ -38,6 +38,7 @@ Clone the repository and install the required dependencies:
 ```bash
 pip install openai tiktoken
 ```
+---
 ## 🏗️ Architecture
 
 The pipeline processes data through two distinct tiers to optimize for cost and accuracy.
@@ -64,6 +65,7 @@ The pipeline processes data through two distinct tiers to optimize for cost and 
                           v
              [ FINAL EVALUATION REPORT ]
 ```
+---
 ## 🧠 Design Decisions
 LLM-as-a-Judge: Replaced rigid text-match metrics (BLEU/ROUGE) with semantic evaluation to accurately distinguish between valid answers and hallucinations.
 
@@ -72,6 +74,7 @@ Chain-of-Thought (CoT): Implemented reasoning-first prompting (reason before sco
 Proactive Costing: Integrated tiktoken for local cost estimation before API calls, enabling budget caps and proactive filtering.
 
 Context-Aware Logic: Replaced "brute force" looping with smart parsing that isolates valid User→AI turns, preventing wasteful evaluation of system prompts or simple chit-chat.
+---
 
 ## 🚀 Scalability Strategy (Millions of Users)
 To ensure minimal latency and cost at scale:
