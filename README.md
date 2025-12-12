@@ -1,7 +1,7 @@
 # 🕵️‍♂️ LLM Response Evaluation Pipeline
 
-**Author:** Sail Nagale
-**Assignment:** BeyondChats LLM Engineer Internship
+* **Author:** Sail Nagale
+* **Assignment:** BeyondChats LLM Engineer Internship
 
 ## ⚠️ Note on API Usage (Mock Mode)
 
