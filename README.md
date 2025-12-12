@@ -26,3 +26,24 @@ Clone the repository and install the required dependencies:
 ```bash
 # Install dependencies
 pip install openai tiktoken
+3. Usage (Mock Mode vs. Real API)
+Option A: Run in Mock Mode (Default - Free) To ensure this submission is reviewable without requiring active API credits, the script defaults to MOCK_MODE = True. It simulates LLM responses to demonstrate the pipeline's logic, data parsing, and reporting capabilities.
+
+Bash
+
+python main.py
+Option B: Run with Real OpenAI API To run the actual semantic evaluation using GPT-3.5-Turbo:
+
+Open main.py and set MOCK_MODE = False.
+
+Export your API key:
+
+Bash
+
+export OPENAI_API_KEY="sk-your-key-here"
+# Or set it in your environment variables
+Run the script:
+
+Bash
+
+python main.py
