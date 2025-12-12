@@ -37,3 +37,22 @@ Clone the repository and install the required dependencies:
 
 ```bash
 pip install openai tiktoken
+```
+
+Architecture
+The pipeline follows a Tiered Evaluation Architecture designed to balance accuracy with cost.
+
+Code snippet
+
+graph TD
+    A[Input JSONs] --> B[Data Parser]
+    B --> C{Evaluation Engine}
+    C -->|Tier 1: Deterministic| D[Cost & Token Calculator]
+    D -->|Tiktoken| E[Cost Metrics]
+    C -->|Tier 2: Semantic| F[LLM-as-a-Judge]
+    F -->|Prompt: Hallucination Check| G[Factual Score]
+    F -->|Prompt: Relevance Check| H[Relevance Score]
+    E --> I[Aggregator]
+    G --> I
+    H --> I
+    I --> J[Final JSON Report]
