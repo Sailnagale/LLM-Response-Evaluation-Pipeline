@@ -64,59 +64,26 @@ The pipeline processes data through two distinct tiers to optimize for cost and 
                           v
              [ FINAL EVALUATION REPORT ]
 ```
-## Design Decisions: Why this way?
-1. Why "LLM-as-a-Judge"?
-Traditional metrics like BLEU or ROUGE are insufficient for chatbots because they rely on exact word overlap. A chatbot can give a correct answer using completely different words than the reference. I chose an LLM-based evaluator because it captures semantic meaning, allowing it to distinguish between a "polite refusal" (valid) and a "hallucination" (invalid).
+## 🧠 Design Decisions
+LLM-as-a-Judge: Replaced rigid text-match metrics (BLEU/ROUGE) with semantic evaluation to accurately distinguish between valid answers and hallucinations.
 
-2. Why Chain-of-Thought Prompting?
-In the evaluation prompts, I force the model to output a reason before the score.
+Chain-of-Thought (CoT): Implemented reasoning-first prompting (reason before score) to significantly reduce false positive grades.
 
-Without CoT: The model often guesses "1" or "0" arbitrarily.
+Proactive Costing: Integrated tiktoken for local cost estimation before API calls, enabling budget caps and proactive filtering.
 
-With CoT: Forcing the model to explain why ("The context mentions 2024, but the answer says 2025") significantly reduces false positives.
+Context-Aware Logic: Replaced "brute force" looping with smart parsing that isolates valid User→AI turns, preventing wasteful evaluation of system prompts or simple chit-chat.
 
-3. Why tiktoken for Costs?
-API costs are non-trivial at scale. Relying on the API response for usage data is reactive. By using tiktoken locally, we can estimate (and potentially cap) costs before sending the request, adding a layer of budget safety.
+## 🚀 Scalability Strategy (Millions of Users)
+To ensure minimal latency and cost at scale:
 
-4. Logic vs. Brute Force: The "Smart" Approach
-A basic "brute-force" approach would simply loop through every single conversation turn and feed it into GPT-4. While simple to write, this approach is production-hostile because:
+Async Decoupling: Evaluation is offloaded to background workers via message queues (Kafka/RabbitMQ), ensuring zero impact on user-facing chat latency.
 
-It burns money: Grading simple greetings (e.g., "Hi", "Thanks") costs the same as grading complex queries.
+Tiered Sampling:
 
-It adds latency: Blocking the pipeline for every message slows down throughput.
+Tier 1 (100%): Free, deterministic metrics (Cost/Latency) run on every chat.
 
-My Optimized Approach: Instead of blind evaluation, this pipeline implements Context-Aware Parsing:
+Tier 2 (5%): Expensive LLM grading runs only on a statistical sample.
 
-Pairing Logic: The script specifically identifies User -> AI turn pairs. It doesn't waste tokens evaluating the AI talking to itself or system messages.
+Tier 3 (Priority): Immediate evaluation triggered only by negative user feedback (e.g., "thumbs down").
 
-Deterministic First: We calculate "Free" metrics (Costs/Tokens) locally using tiktoken before making any API calls. This allows us to filter or cap requests if they exceed budget thresholds before they even reach the LLM.
-
-Simulation Capability: The MOCK_MODE isn't just for testing; it demonstrates an architecture where we can swap the "Real Judge" for a "Heuristic Judge" (e.g., regex checks) for lower-priority conversations, preventing the "brute force" waste of resources.
-
-## Scalability Strategy
-Addressing the requirement: "How to ensure latency and costs remain minimum at scale (millions of conversations)?"
-
-Running a GPT-4 evaluation on every single message in real-time is not viable for millions of users. Here is the production strategy:
-
-1. Asynchronous Processing (Latency Optimization)
-Evaluation must never block the user experience.
-
-Strategy: Decouple evaluation from the chat loop. Push conversation logs to a high-throughput message queue (e.g., Kafka or RabbitMQ).
-
-Implementation: A separate fleet of "Worker" services consumes these logs and runs this Python script in the background, ensuring user latency remains at milliseconds.
-
-2. Tiered Sampling (Cost Optimization)
-We do not need to evaluate 100% of conversations with an expensive LLM.
-
-Tier 1 (100% of Traffic): Run the Deterministic Metrics (Cost/Latency) on everything. It is computationally free.
-
-Tier 2 (Statistical Sampling): Run the LLM Judge on a random 5% sample of traffic.
-
-Tier 3 (Trigger-Based): Immediately evaluate any conversation where the user signals dissatisfaction (e.g., "thumbs down" or negative sentiment detected).
-
-3. Model Distillation
-For the "Judge" model, we would move away from general-purpose models like GPT-4.
-
-Strategy: Fine-tune a smaller, cheaper model (like Llama-3-8B or GPT-4o-mini) specifically on the task of "Hallucination Detection."
-
-Impact: This reduces inference costs by ~10x-20x while maintaining high accuracy for this specific binary classification task.
+Model Distillation: Replace general-purpose models (GPT-4) with specialized, small models (e.g., Llama-3-8B or GPT-4o-mini) to reduce inference costs by ~90%.
